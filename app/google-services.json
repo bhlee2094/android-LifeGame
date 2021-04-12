@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "405965309284",
+    "project_id": "myfirstgame-e372a",
+    "storage_bucket": "myfirstgame-e372a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:405965309284:android:a070f77e77800882612671",
+        "android_client_info": {
+          "package_name": "com.bhlee.myfirstgame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "405965309284-5injsaknhojip51c1uqt2b0frnd70hu4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAr22Dc_yshr7DgYVTWPt6c_vD7-syv44s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "405965309284-5injsaknhojip51c1uqt2b0frnd70hu4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
