@@ -23,6 +23,16 @@
         app:layout_constraintTop_toBottomOf="@id/TextViewAbility"
         android:background="#000000" />
 
+    <TextView
+        android:id="@+id/textViewAbilityList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="TextView"
+        android:textColor="#070000"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/btn_close_ability"
+        app:layout_constraintTop_toBottomOf="@id/view" />
+
     <Button
         android:id="@+id/btn_close_ability"
         android:layout_width="100dp"
