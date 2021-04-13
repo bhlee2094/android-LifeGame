@@ -7,7 +7,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
@@ -19,10 +18,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Objects;
-import java.util.concurrent.Executor;
 
 public class MainActivity extends AppCompatActivity implements Button.OnClickListener {
 
@@ -97,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.join_dialog);
+            setContentView(R.layout.dialog_join);
 
             // 다이얼로그의 배경을 투명으로 만든다.
             Objects.requireNonNull(getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -160,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.findpassword_dialog);
+            setContentView(R.layout.dialog_findpassword);
 
             // 다이얼로그의 배경을 투명으로 만든다.
             Objects.requireNonNull(getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

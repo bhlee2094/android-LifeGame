@@ -41,6 +41,7 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/btn_ability"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -51,6 +52,7 @@
             android:textSize="18sp" />
 
         <Button
+            android:id="@+id/btn_item"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -61,4 +63,5 @@
             android:textSize="18sp" />
 
     </LinearLayout>
+
 </LinearLayout>
