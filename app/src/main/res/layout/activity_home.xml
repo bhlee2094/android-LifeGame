@@ -9,12 +9,17 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:gravity="center"
         android:text="LIFEGAME"
         android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold|italic" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#000000" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -34,6 +39,12 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#000000" />
 
     <LinearLayout
         android:layout_width="match_parent"

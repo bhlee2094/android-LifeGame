@@ -83,12 +83,12 @@ public class HomeActivity extends AppCompatActivity implements Button.OnClickLis
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_ability:
-                fragmentTransaction.replace(R.id.fragment_home, new AbilityFragment());
-                fragmentTransaction.commit();
+                Intent intent = new Intent(HomeActivity.this, AbilityActivity.class);
+                startActivity(intent);
                 break;
             case R.id.btn_item:
-                fragmentTransaction.replace(R.id.fragment_home, new ItemFragment());
-                fragmentTransaction.commit();
+                intent = new Intent(HomeActivity.this, ItemActivity.class);
+                startActivity(intent);
                 break;
         }
     }
