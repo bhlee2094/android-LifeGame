@@ -12,7 +12,9 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +26,7 @@ public class HomeActivity extends AppCompatActivity implements Button.OnClickLis
     private Button btn_ability, btn_item;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
+    private Switch musicSwitch;
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event){ //뒤로가기 클릭시 로그아웃
@@ -69,9 +72,17 @@ public class HomeActivity extends AppCompatActivity implements Button.OnClickLis
     private void HomeInit(){
         btn_ability = findViewById(R.id.btn_ability);
         btn_item = findViewById(R.id.btn_item);
+        musicSwitch = findViewById(R.id.switch_music);
+        if(MainActivity.musicKey) {
+            musicSwitch.setChecked(true);
+        }
+        else {
+            musicSwitch.setChecked(false);
+        }
 
         btn_ability.setOnClickListener(this);
         btn_item.setOnClickListener(this);
+        musicSwitch.setOnCheckedChangeListener(new musicSwitchListener());
 
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -90,6 +101,22 @@ public class HomeActivity extends AppCompatActivity implements Button.OnClickLis
                 intent = new Intent(HomeActivity.this, ItemActivity.class);
                 startActivity(intent);
                 break;
+        }
+    }
+
+    class musicSwitchListener implements CompoundButton.OnCheckedChangeListener{ //음악 스위치
+
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if(isChecked) {
+                startService(new Intent(getApplicationContext(), MusicService.class));
+                MainActivity.musicKey = true;
+            }
+            else {
+                stopService(new Intent(getApplicationContext(), MusicService.class));
+                MainActivity.musicKey = false;
+            }
+
         }
     }
 }

@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".MainActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
+
+        <Switch
+            android:id="@+id/switch_music1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Music" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#000000" />
+
+        <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -18,7 +34,7 @@
         android:textSize="30sp"
         android:textStyle="bold|italic" />
 
-    <EditText
+        <EditText
         android:id="@+id/editTextTextEmailAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -88,10 +104,12 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/round_button"
         android:text="비밀번호 찾기"
-        android:textSize="18sp"
         android:textColor="#FFFFFF"
+        android:textSize="18sp"
         app:backgroundTint="#BF6C6C" />
-</LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

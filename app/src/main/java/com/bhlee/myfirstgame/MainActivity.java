@@ -11,7 +11,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,6 +28,8 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
     private Button btn_join, btn_login, btn_findPassword;
     private EditText Address, Password;
     private FirebaseAuth firebaseAuth;
+    private Switch musicSwitch;
+    static public boolean musicKey = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +45,20 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         btn_findPassword = findViewById(R.id.btn_findPassword);
         Address = findViewById(R.id.editTextTextEmailAddress);
         Password = findViewById(R.id.editTextTextPassword);
+        musicSwitch = findViewById(R.id.switch_music1);
+        if(musicKey){
+            musicSwitch.setChecked(true);
+            startService(new Intent(getApplicationContext(), MusicService.class));
+        } else{
+            musicSwitch.setChecked(false);
+        }
 
         firebaseAuth = FirebaseAuth.getInstance();
 
         btn_join.setOnClickListener(this);
         btn_login.setOnClickListener(this);
         btn_findPassword.setOnClickListener(this);
+        musicSwitch.setOnCheckedChangeListener(new musicSwitchListener());
     }
 
     @Override
@@ -199,4 +211,19 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         }
     } //비밀번호찾기 다이어로그 끝
 
+    class musicSwitchListener implements CompoundButton.OnCheckedChangeListener{ //음악 스위치
+
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if(isChecked) {
+                startService(new Intent(getApplicationContext(), MusicService.class));
+                musicKey = true;
+            }
+            else {
+                stopService(new Intent(getApplicationContext(), MusicService.class));
+                musicKey = false;
+            }
+
+        }
+    }
 }
