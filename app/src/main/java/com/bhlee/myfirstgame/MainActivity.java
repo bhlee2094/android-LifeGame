@@ -17,9 +17,12 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Objects;
 
@@ -28,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
     private Button btn_join, btn_login, btn_findPassword;
     private EditText Address, Password;
     private FirebaseAuth firebaseAuth;
+    private FirebaseFirestore db;
+    private DocumentReference usersReference;
     private Switch musicSwitch;
     static public boolean musicKey = true;
 
@@ -142,7 +147,16 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if(task.isSuccessful()){
-                                    Toast.makeText(MainActivity.this, "회원가입 성공", Toast.LENGTH_SHORT).show();
+                                    db = FirebaseFirestore.getInstance();
+                                    usersReference = db.collection("users").document(firebaseAuth.getCurrentUser().getUid());
+                                    UsersDTO usersDTO = new UsersDTO(0,10,1,1); // 회원가입시 초기 설정
+                                    usersReference.set(usersDTO)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Toast.makeText(MainActivity.this, "회원가입 성공", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
                                     dismiss();
                                 }else{
                                     Toast.makeText(MainActivity.this, "email 형식으로 입력해주세요", Toast.LENGTH_SHORT).show();
