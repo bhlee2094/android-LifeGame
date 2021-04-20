@@ -4,7 +4,7 @@
     android:background="@drawable/round_dialog"
     android:layout_gravity="center"
     android:layout_width="250dp"
-    android:layout_height="265dp"
+    android:layout_height="290dp"
     android:orientation="vertical">
 
     <TextView
@@ -38,7 +38,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="20dp"
         android:hint="password 6자리이상" />
 
     <Button
