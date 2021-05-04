@@ -16,6 +16,10 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.bhlee.myfirstgame.databinding.ActivityItemBinding;
+import com.bhlee.myfirstgame.databinding.ActivityMainBinding;
+import com.bhlee.myfirstgame.databinding.DialogFindpasswordBinding;
+import com.bhlee.myfirstgame.databinding.DialogJoinBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -28,42 +32,35 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements Button.OnClickListener {
 
-    private Button btn_join, btn_login, btn_findPassword;
-    private EditText Address, Password;
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore db;
     private DocumentReference usersReference;
-    private Switch musicSwitch;
+    private ActivityMainBinding binding;
     static public boolean musicKey = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         init();
     }
 
     private void init(){
-        btn_join = findViewById(R.id.btn_join);
-        btn_login = findViewById(R.id.btn_login);
-        btn_findPassword = findViewById(R.id.btn_findPassword);
-        Address = findViewById(R.id.editTextTextEmailAddress);
-        Password = findViewById(R.id.editTextTextPassword);
-        musicSwitch = findViewById(R.id.switch_music1);
         if(musicKey){
-            musicSwitch.setChecked(true);
+            binding.switchMusic1.setChecked(true);
             startService(new Intent(getApplicationContext(), MusicService.class));
         } else{
-            musicSwitch.setChecked(false);
+            binding.switchMusic1.setChecked(false);
         }
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        btn_join.setOnClickListener(this);
-        btn_login.setOnClickListener(this);
-        btn_findPassword.setOnClickListener(this);
-        musicSwitch.setOnCheckedChangeListener(new musicSwitchListener());
+        binding.btnJoin.setOnClickListener(this);
+        binding.btnLogin.setOnClickListener(this);
+        binding.btnFindPassword.setOnClickListener(this);
+        binding.switchMusic1.setOnCheckedChangeListener(new musicSwitchListener());
     }
 
     @Override
@@ -74,8 +71,8 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
                 joinDialog.show();
                 break;
             case R.id.btn_login :
-                if(Address.getText().toString().length() > 0 && Password.getText().toString().length() > 0){
-                    firebaseAuth.signInWithEmailAndPassword(Address.getText().toString(), Password.getText().toString())
+                if(binding.editTextTextEmailAddress.getText().toString().length() > 0 && binding.editTextTextPassword.getText().toString().length() > 0){
+                    firebaseAuth.signInWithEmailAndPassword(binding.editTextTextEmailAddress.getText().toString(), binding.editTextTextPassword.getText().toString())
                             .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -99,9 +96,8 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
 
     public class JoinDialog extends Dialog { //회원가입 다이어로그
 
-        private EditText join_email, join_password;
-        private Button btn_ok, btn_cancle;
         private Context context;
+        private DialogJoinBinding joinBinding;
 
         public JoinDialog(@NonNull Context context) {
             super(context);
@@ -111,25 +107,22 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.dialog_join);
+            joinBinding = DialogJoinBinding.inflate(getLayoutInflater());
+            setContentView(joinBinding.getRoot());
 
             // 다이얼로그의 배경을 투명으로 만든다.
             Objects.requireNonNull(getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
             firebaseAuth = FirebaseAuth.getInstance();
-            join_email = findViewById(R.id.join_email);
-            join_password = findViewById(R.id.join_password);
-            btn_ok = findViewById(R.id.btn_ok);
-            btn_cancle = findViewById(R.id.btn_cancle);
 
-            btn_ok.setOnClickListener(new Button.OnClickListener() {
+            joinBinding.btnOk.setOnClickListener(new Button.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     signUp();
                 }
             });
 
-            btn_cancle.setOnClickListener(new Button.OnClickListener() {
+            joinBinding.btnCancle.setOnClickListener(new Button.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     dismiss();
@@ -138,8 +131,8 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         }
 
         private void signUp(){
-            String email = join_email.getText().toString();
-            String password = join_password.getText().toString();
+            String email = joinBinding.joinEmail.getText().toString();
+            String password = joinBinding.joinPassword.getText().toString();
 
             if(email.length() > 0 && password.length() >= 6){
                 firebaseAuth.createUserWithEmailAndPassword(email, password)
@@ -171,9 +164,8 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
 
     public class FindPasswordDialog extends Dialog { //비밀번호찾기 다이어로그
 
-        private EditText findPassword_email;
-        private Button btn_ok2, btn_cancle2;
         private Context context;
+        private DialogFindpasswordBinding findpasswordBinding;
 
         public FindPasswordDialog(@NonNull Context context) {
             super(context);
@@ -183,24 +175,22 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.dialog_findpassword);
+            findpasswordBinding = DialogFindpasswordBinding.inflate(getLayoutInflater());
+            setContentView(findpasswordBinding.getRoot());
 
             // 다이얼로그의 배경을 투명으로 만든다.
             Objects.requireNonNull(getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
             firebaseAuth = FirebaseAuth.getInstance();
-            findPassword_email = findViewById(R.id.findPassword_email);
-            btn_ok2 = findViewById(R.id.btn_ok2);
-            btn_cancle2 = findViewById(R.id.btn_cancle2);
 
-            btn_ok2.setOnClickListener(new Button.OnClickListener() {
+            findpasswordBinding.btnOk2.setOnClickListener(new Button.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     sendPasswordResetEmail();
                 }
             });
 
-            btn_cancle2.setOnClickListener(new Button.OnClickListener() {
+            findpasswordBinding.btnCancle2.setOnClickListener(new Button.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     dismiss();
@@ -209,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         }
 
         private void sendPasswordResetEmail(){
-            String emailAddress = findPassword_email.getText().toString();
+            String emailAddress = findpasswordBinding.findPasswordEmail.getText().toString();
             firebaseAuth.sendPasswordResetEmail(emailAddress)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override

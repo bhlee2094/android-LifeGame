@@ -18,15 +18,16 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bhlee.myfirstgame.databinding.ActivityHomeBinding;
+import com.bhlee.myfirstgame.databinding.ActivityItemBinding;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class HomeActivity extends AppCompatActivity implements Button.OnClickListener {
 
     private FirebaseAuth firebaseAuth;
-    private Button btn_ability, btn_item;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
-    private Switch musicSwitch;
+    private ActivityHomeBinding binding;
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event){ //뒤로가기 클릭시 로그아웃
@@ -57,7 +58,8 @@ public class HomeActivity extends AppCompatActivity implements Button.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        binding = ActivityHomeBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         HomeInit();
     }
@@ -70,19 +72,17 @@ public class HomeActivity extends AppCompatActivity implements Button.OnClickLis
     }
 
     private void HomeInit(){
-        btn_ability = findViewById(R.id.btn_ability);
-        btn_item = findViewById(R.id.btn_item);
-        musicSwitch = findViewById(R.id.switch_music);
+
         if(MainActivity.musicKey) {
-            musicSwitch.setChecked(true);
+            binding.switchMusic.setChecked(true);
         }
         else {
-            musicSwitch.setChecked(false);
+            binding.switchMusic.setChecked(false);
         }
 
-        btn_ability.setOnClickListener(this);
-        btn_item.setOnClickListener(this);
-        musicSwitch.setOnCheckedChangeListener(new musicSwitchListener());
+        binding.btnAbility.setOnClickListener(this);
+        binding.btnItem.setOnClickListener(this);
+        binding.switchMusic.setOnCheckedChangeListener(new musicSwitchListener());
 
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
